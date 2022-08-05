@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="luminous_description" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+
+<xacro:macro name="luminous_description" params="footprint_link:=true">
+
+  <xacro:if value="${footprint_link}">
+    <link name="base_footprint"/>
+  </xacro:if>
+  
+  <xacro:if value="${footprint_link}">
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+      <axis xyz="0 1 0" />
+    </joint>
+  </xacro:if>
+  
+  <link name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.292192995777792 -0.22690965690504 0.00404107633465152"
+        rpy="0 0 0" />
+      <mass value="3.87441631084257" />
+      <inertia 
+        ixx="0.020" ixy="0.0" ixz="0.0"
+        iyy="0.045" iyz="0.0"
+        izz="0.064" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://luminous_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89 0.9 0.9 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://luminous_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+<!-- ######################################################################################### -->
+
+  <link name="left_arm_link">
+    <inertial>
+      <origin
+        xyz="-0.168734349342689 0.00689363506515819 -0.140557199176402"
+        rpy="0 0 0" />
+      <mass value="2.74312231684425" />
+      <inertia
+        ixx="0.0050" ixy="0.0" ixz="0.0"
+        iyy="0.0076" iyz="0.0"
+        izz="0.005" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://luminous_description/meshes/left_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898 0.917 0.929 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://luminous_description/meshes/left_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_arm_joint" type="revolute">
+    <origin
+      xyz="-0.39963 0.04703 -0.12079"
+      rpy="3.1416 -0.78563 -3.1416" />
+
+    <parent link="base_link" />
+    <child link="left_arm_link" />
+    <axis xyz="0 -1 0" />
+
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="left_front_link">
+    <inertial>
+      <origin
+        xyz="-5.07639145967964E-05 -9.8700697166873E-05 0.0442167266687109"
+        rpy="0 0 0" />
+      <mass value="3.71887643610456" />
+      <inertia
+        ixx="0.0123" ixy="0.0" ixz="0.0"
+        iyy="0.0130" iyz="0.0"
+        izz="0.023" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://luminous_description/meshes/left_front_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898 0.917 0.929 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://luminous_description/meshes/left_front_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_front_joint" type="continuous">
+    <origin
+      xyz="-0.52285 0.045 -0.31635"
+      rpy="1.5708 -0.37749 -3.1416" />
+    
+    <parent link="left_arm_link" />
+    <child link="left_front_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+  
+  <link name="left_rear_link">
+    <inertial>
+      <origin
+        xyz="0.000105705340665341 -3.23769432927223E-05 0.0442172114248906"
+        rpy="0 0 0" />
+      <mass value="3.71739501841486" />
+      <inertia
+        ixx="0.013" ixy="0.0" ixz="0.0"
+        iyy="0.013" iyz="0.0"
+        izz="0.023" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/left_rear_link.STL" />
+      </geometry>
+      <material name="">
+        <color
+          rgba="0.8980 0.9176 0.9294 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/left_rear_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_rear_joint" type="continuous">
+    <origin
+      xyz="0 0.045 0.2065"
+      rpy="1.5708 -0.39123 -3.1416" />
+
+    <parent link="left_arm_link" />
+    <child link="left_rear_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="right_arm_link">
+    <inertial>
+      <origin
+        xyz="-0.175801981198947 0.00689214231445134 -0.14764559904875"
+        rpy="0 0 0" />
+      <mass
+        value="2.74312236288681" />
+      <inertia
+        ixx="0.005" ixy="0.0" ixz="0.0"
+        iyy="0.007" iyz="0.0"
+        izz="0.005" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/right_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.898 0.917 0.929 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/right_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_arm_joint" type="revolute">
+    <origin
+      xyz="0.047892 -0.50097 -0.12072"
+      rpy="3.1416 -0.78595 0" />
+
+    <parent link="base_link" />
+    <child link="right_arm_link" />
+    <axis xyz="0 1 0" />
+
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="right_front_link">
+    <inertial>
+      <origin
+        xyz="-0.00121672409099594 -7.06845735430339E-05 8.51539172080917E-05"
+        rpy="0 0 0" />
+      <mass value="3.71887618259107" />
+      <inertia
+        ixx="0.023" ixy="0.0" ixz="0.0"
+        iyy="0.013" iyz="0.0"
+        izz="0.013" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/right_front_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.776 0.756 0.737 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/right_front_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_front_joint" type="continuous">
+    <origin
+      xyz="0 0.088 0.2065"
+      rpy="0.78426 0 -1.5708" />
+
+    <parent link="right_arm_link" />
+    <child link="right_front_link" />
+    <axis xyz="1 0 0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="right_rear_link">
+    <inertial>
+      <origin
+        xyz="-0.000100975746321674 -4.60176370556953E-05 0.0442167288864387"
+        rpy="0 0 0" />
+      <mass value="3.71887554964236" />
+      <inertia
+        ixx="0.013" ixy="0.0" ixz="0.0"
+        iyy="0.013" iyz="0.0"
+        izz="0.023" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/right_rear_link.STL" />
+      </geometry>
+      <material name="">
+        <color
+          rgba="0.898 0.917 0.929 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/right_rear_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_rear_joint" type="continuous">
+    <origin
+      xyz="-0.52285 0.045 -0.31635"
+      rpy="1.5708 -1.0475 3.1416" />
+
+    <parent link="right_arm_link" />
+    <child link="right_rear_link" />
+    <axis xyz="0 0 -1" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="suspension_link">
+    <inertial>
+      <origin
+        xyz="0.263999184327659 -2.26773032130367E-07 -2.0611532837167E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.40780277590544" />
+      <inertia
+        ixx="0.0001" ixy="0.0" ixz="0.0"
+        iyy="0.0080" iyz="0.0"
+        izz="0.0080" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/suspension_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.776 0.756 0.737 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/suspension_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="suspension_joint" type="revolute">
+    <origin
+      xyz="-0.4929 0.03703 -0.06"
+      rpy="2.251 0 -1.5708" />
+
+    <parent link="base_link" />
+    <child link="suspension_link" />
+    <axis xyz="0 -0.77745 0.62895" />
+
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="suspension_right_link">
+    <inertial>
+      <origin
+        xyz="-1.21507635064688E-08 -6.40934057216658E-08 0.145575005317617"
+        rpy="0 0 0" />
+      <mass value="0.0840" />
+      <inertia
+        ixx="0.00014" ixy="0.0" ixz="0.0"
+        iyy="0.00014" iyz="0.0"
+        izz="0.00001" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/suspension_right_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.651 0.619 0.588 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/suspension_right_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="suspension_right_joint" type="fixed">
+    <origin
+      xyz="0.51745 -0.0074453 -0.013123"
+      rpy="2.6556 -0.18099 -0.32835" />
+
+    <parent link="suspension_link" />
+    <child link="suspension_right_link" />
+    <axis xyz="0 0 0" />
+
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+
+  <link name="suspension_left_link">
+    <inertial>
+      <origin
+        xyz="-2.15199728523241E-08 -0.158570500011984 -0.0258431759273915"
+        rpy="0 0 0" />
+      <mass value="0.084" />
+      <inertia
+        ixx="0.00014" ixy="0.0" ixz="0.0"
+        iyy="0.0001" iyz="0.0"
+        izz="0.00014" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/suspension_left_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.639 0.6666 0.678 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/suspension_left_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="suspension_left_joint" type="fixed">
+    <origin
+      xyz="0.010559 -0.15856 -0.27948"
+      rpy="-1.2163 2.2421E-05 -3.1416" />
+
+    <parent link="suspension_link" />
+    <child link="suspension_left_link" />
+    <axis xyz="0 0 0" />
+
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+  
+  <link name="lidar_link">
+    <inertial>
+      <origin
+        xyz="-1.4938144858756E-05 -1.451940585942E-06 -0.000565454433332089"
+        rpy="0 0 -1.5708 " />
+      <mass value="0.1654" />
+      <inertia
+        ixx="0.00001" ixy="0.0" ixz="0.0"
+        iyy="0.0001" iyz="0.0"
+        izz="0.0001" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 -1.5708 " />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/lidar_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.7529 0.7529 0.7529 0.4" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 -1.5708 " />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin
+      xyz="0.010595 -0.22677 0.0418"
+      rpy="3.1416 0 0" />
+    <parent link="base_link" />
+    <child link="lidar_link" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+<!-- ######################################################################################### -->
+
+  <link name="robotic_arm_link">
+    <inertial>
+      <origin
+        xyz="-0.0924359777050768 0.360123248030706 0.161517611037279"
+        rpy="0 0 0" />
+      <mass value="3.94405" />
+      <inertia
+        ixx="0.010" ixy="0.006" ixz="0.003"
+        iyy="0.012" iyz="0.002"
+        izz="0.017" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/robotic_arm_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.7529 0.7529 0.7529 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/robotic_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="robotic_arm_joint" type="fixed">
+    <origin
+      xyz="-0.13811 -0.35966 -0.012828"
+      rpy="1.5708 0 2.6048" />
+
+    <parent link="base_link" />
+    <child link="robotic_arm_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  
+<!-- ######################################################################################### -->
+<!--
+  <link name="depth_cam_link">
+    <inertial>
+      <origin
+        xyz="0.00168231663021887 2.48072661927778E-06 -0.0132722910791752"
+        rpy="0 0 0" />
+      <mass value="0.03819" />
+      <inertia
+        ixx="0.0001" ixy="0.0" ixz="0.0"
+        iyy="0.0001" iyz="0.0"
+        izz="0.0001" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/depth_cam_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.7529 0.7529 0.7529 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://luminous_description/meshes/depth_cam_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="depth_cam_joint" type="fixed">
+    <origin
+      xyz="0.060893 -0.22847 -0.029728"
+      rpy="1.5708 0 1.5708" />
+      
+    <parent link="base_link" />
+    <child link="depth_cam_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+-->
+<xacro:sensor_d435 name="camera" topics_ns="camera" parent="base_link" publish_pointcloud="true">
+    <origin xyz="0.060893 -0.22847 -0.029728" rpy="0 0 0" />
+  </xacro:sensor_d435>  
+<!-- ######################################################################################### -->
+
+  <transmission name="front_right_wheel_trans" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="front_right_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="right_front_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="front_left_wheel_trans" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="front_left_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="left_front_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="rear_right_wheel_trans" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="rear_right_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="right_rear_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="rear_left_wheel_trans" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="rear_left_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="left_rear_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+</xacro:macro>
+
+</robot>
