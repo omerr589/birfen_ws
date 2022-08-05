@@ -1,0 +1,6 @@
+controller_frequency: 5.0
+recovery_behaviour_enabled: track_unknown_space
+
+NavfnROS:
+  allow_unknown: track_unknown_space
+  default_tolerance: 0.1

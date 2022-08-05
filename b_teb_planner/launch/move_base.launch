@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+    
+
+    <include file="$(find luminous_description)/launch/spawn.launch" />
+    <include file="$(find b_teb_planner)/launch/amcl.launch" />
+
+
+    <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen">
+
+        <param name="base_global_planner" value="navfn/NavfnROS"/>
+        <!-- 
+        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
+        -->
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+
+
+        <rosparam file="$(find b_teb_planner)/config/base_global_planner.yaml" command="load" />
+        <rosparam file="$(find b_teb_planner)/config/teb_local_planner.yaml" command="load" />
+
+
+        <rosparam file="$(find b_teb_planner)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find b_teb_planner)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+
+
+        <rosparam file="$(find b_teb_planner)/config/local_costmap_params.yaml" command="load" />
+        <param name="local_costmap/width" value="10.0"/>
+        <param name="local_costmap/height" value="10.0"/>
+
+
+        <rosparam file="$(find b_teb_planner)/config/global_costmap_params.yaml" command="load" />
+        
+    </node>
+</launch>

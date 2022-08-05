@@ -1,0 +1,44 @@
+<launch>
+    <master auto="start" />
+    <param name="/use_sim_time" value="true" />
+    <arg name="open_rviz" default="true" />
+
+    <!--<node pkg="stage" type="stageros" name="stageros" args="$(find sbpl_lattice_planner)/worlds/willow.world" respawn="false">
+        <param name="base_watchdog_timeout" value="0.2" />
+    </node>-->
+
+    <arg name="map_file" default="$(find birfen_navigation)/maps/tb3_map.yaml" />
+
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
+
+
+    
+  <include file="$(find turtlebot3_navigation)/launch/amcl.launch.xml"/>
+
+    <node ns="local_costmap" name="voxel_grid_throttle" pkg="topic_tools" type="throttle" args="messages voxel_grid 3.0 voxel_grid_throttled" />
+
+    <!-- Move Base-->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
+        <param name="footprint_padding" value="0.01" />
+        <param name="controller_frequency" value="10.0" />
+        <param name="controller_patience" value="100.0" />
+        <param name="base_global_planner" value="SBPLLatticePlanner" />
+        <param name="SBPLLatticePlanner/primitive_filename" value="$(find sbpl_lattice_planner)/matlab/mprim/pr2.mprim" />
+        <rosparam file="$(find birfen_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find birfen_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find birfen_navigation)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find birfen_navigation)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find birfen_navigation)/config/sbpl_global_params.yaml" command="load" />
+        <rosparam file="$(find birfen_navigation)/config/base_local_planner_params_close.yaml" command="load" />
+    </node>
+    
+
+
+    <node name="fake_localization" pkg="fake_localization" type="fake_localization" respawn="false" />
+
+    <group if="$(arg open_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_nav.rviz" />
+    </group>
+
+
+</launch>
