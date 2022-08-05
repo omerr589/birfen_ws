@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <gazebo>
+      <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+        <updateRate>20.0</updateRate>
+        <robotNamespace>/</robotNamespace>
+        <leftFrontJoint>left_front_joint</leftFrontJoint>
+        <rightFrontJoint>right_front_joint</rightFrontJoint>
+        <leftRearJoint>left_rear_joint</leftRearJoint>
+        <rightRearJoint>right_rear_joint</rightRearJoint>
+        <wheelSeparation>0.628</wheelSeparation>
+        <wheelDiameter>0.294</wheelDiameter>
+        <robotBaseFrame>base_footprint</robotBaseFrame>
+        <torque>50</torque>
+        <MaxForce>5.0</MaxForce>
+        <commandTopic>cmd_vel</commandTopic>
+        <broadcastTF>true</broadcastTF>
+        <!--<odometryTopic>odom</odometryTopic>
+        <odometryFrame>/odom</odometryFrame>-->
+        <covariance_x>0.000100</covariance_x>
+        <covariance_y>0.000100</covariance_y>
+        <covariance_yaw>0.010000</covariance_yaw>
+      </plugin>
+  </gazebo>
+  
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+
+  <gazebo reference="lidar_link">
+    <sensor type="ray" name="head_rplidar_sensor">
+      <pose>0 0 0.5 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>100</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-2.0</min_angle>
+            <max_angle>2.0</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>12.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_rplidar_controller" filename="libgazebo_ros_laser.so">
+        <topicName>scan</topicName>
+        <frameName>lidar_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  
+ 
+    <gazebo reference="base_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu</topicName>
+        <bodyName>base_link</bodyName>
+        <updateRateHZ>100.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+
+
+
+ 
+</robot><!--
+(720x1280) is not 0. Ignoring depth mask for feature detection.
+[ INFO] [1657637865.019668729, 1323.850000000]: Odom: quality=471, std dev=0.040452m|0.067007rad, update time=0.053748s
+[ WARN] (2022-07-12 17:57:45.021) RegistrationVis.cpp:625::computeTransformationImpl() Vis/DepthAsMask is true, but RGB size (480x640) modulo depth size (720x1280) is not 0. Ignoring depth mask for feature detection.
+[ INFO] [1657637865.058833617, 1323.870000000]: Odom: quality=446, std dev=0.030242m|0.058258rad, update time=0.037638s
+Warning: TF_REPEATED_DATA ignoring data with redundant timestamp for frame base_footprint at time 1323.830000 according to authority unknown_publisher
+         at line 278 in /tmp/binarydeb/ros-noetic-tf2-0.7.5/src/buffer_core.cpp
+[ WARN] (2022-07-12 17:57:45.158) RegistrationVis.cpp:625::computeTransformationImpl() Vis/DepthAsMask is true, but RGB size (480x640) modulo depth size (720x1280) is not 0. Ignoring depth mask for feature detection.
+[ INFO] [1657637865.202709659, 1323.940000000]: Odom: quality=447, std dev=0.008658m|0.050171rad, update time=0.044242s
+-->
