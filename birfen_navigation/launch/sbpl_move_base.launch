@@ -8,7 +8,7 @@
     </node>-->
     <include file="$(find luminous_description)/launch/spawn.launch" />
 
-    <arg name="map_file" default="$(find luminous_navigation)/maps/map.yaml" />
+    <arg name="map_file" default="$(find birfen_navigation)/maps/my_map2.yaml" />
 
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
 
