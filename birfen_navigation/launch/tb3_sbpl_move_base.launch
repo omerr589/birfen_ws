@@ -37,7 +37,7 @@
     <node name="fake_localization" pkg="fake_localization" type="fake_localization" respawn="false" />
 
     <group if="$(arg open_rviz)">
-        <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_nav.rviz" />
+        <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find birfen_navigation)/rviz/tb3_sbpl.rviz" />
     </group>
 
 
