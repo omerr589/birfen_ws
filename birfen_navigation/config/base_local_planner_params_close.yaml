@@ -14,13 +14,24 @@ TrajectoryPlannerROS:
 
 # Goal Tolerance Parameters
   xy_goal_tolerance: 0.10
-  yaw_goal_tolerance: 0.05
+  yaw_goal_tolerance: 0.10
+  goal_distance_bias: 0.2
+  path_distance_bias: .9
 
 # Differential-drive robot configuration
   holonomic_robot: false
 
 # Forward Simulation Parameters
-  sim_time: 0.8
-  vx_samples: 18
+  sim_time: 1.7
+  vx_samples: 3
   vtheta_samples: 20
-  sim_granularity: 0.05
+  sim_granularity: 0.025
+
+  dwa: true
+  occdist_scale: 0.01
+  heading_lookahead: 0.325
+  oscillation_reset_dist: 0.05
+
+  heading_scoring: false
+  heading_scoring_timestep: 0.8
+  simple_attractor: false
